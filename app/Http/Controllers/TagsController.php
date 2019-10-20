@@ -22,6 +22,8 @@ class TagsController extends Controller
 
         //$data = $request->all();
         //echo "<pre>"; print_r($data); die;
+
+
         $tag = new Tag();
 
         $tag -> name = $request->name;
@@ -44,5 +46,10 @@ class TagsController extends Controller
         }
         $tag = Tag::where(['id'=>$id])->first();
         return view('tag.edit_tag')->with(compact('tag'));
+    }
+
+    public function deleteTag($id=null){
+        Tag::where(['id'=>$id])->delete();
+        return redirect()->back();
     }
 }

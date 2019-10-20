@@ -6,12 +6,12 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Admin
-                <small>> Add Category</small>
+
+                <small></small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> Admin</a></li>
-                <li class="active">Add New Category</li>
+                <li class="active">Add New Tag</li>
             </ol>
         </section>
 
@@ -21,7 +21,7 @@
                 <div class="col-md-12">
                     <div class="box box-info">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Add Category</h3>
+                            <h3 class="box-title">Add Tag</h3>
                         </div>
                         <!-- /.box-header -->
                         <!-- form start -->
@@ -32,19 +32,19 @@
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="">Tag Name</label>
-                                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter Tag Name">
+                                            <input required type="text" class="form-control" id="name" name="name" placeholder="Enter Tag Name">
                                         </div>
                                         <div class="form-group">
                                             <label for="">Slug</label>
-                                            <input type="text" class="form-control" id="slug" name="slug" placeholder="Enter Tag Slug">
+                                            <input required type="text" class="form-control" id="slug" name="slug" placeholder="Enter Tag Slug">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <!-- /.box-body -->
-
                             <div class="box-footer">
                                 <button type="submit" class="btn btn-primary">Add</button>
+                                <button onclick="closeCurrentTab()" class="btn btn-danger">Cancel</button>
                             </div>
                         </form>
                     </div>
@@ -55,3 +55,4 @@
     </div>
 
 @endsection
+

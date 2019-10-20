@@ -32,11 +32,11 @@
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label for="">Category Name</label>
-                                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter Category Name">
+                                            <input required type="text" class="form-control" id="name" name="name" placeholder="Enter Category Name">
                                         </div>
                                         <div class="form-group">
                                             <label for="">Slug</label>
-                                            <input type="text" class="form-control" id="slug" name="slug" placeholder="Enter Category Slug">
+                                            <input required type="text" class="form-control" id="slug" name="slug" placeholder="Enter Category Slug">
                                         </div>
                                     </div>
                                 </div>
@@ -45,6 +45,7 @@
 
                             <div class="box-footer">
                                 <button type="submit" class="btn btn-primary">Add</button>
+                                <button onclick="closeCurrentTab()" class="btn btn-danger">Cancel</button>
                             </div>
                         </form>
                     </div>

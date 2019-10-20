@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Post;
+use App\Tag;
 use Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
@@ -17,7 +19,9 @@ class PostController extends Controller
 
 
     public function create(){
-        return view('posts.add_post');
+        $tags = Tag::all();
+        $categories = Category::all();
+        return view('posts.add_post',compact('tags','categories'));
     }
 
     public function store(Request $request){
@@ -31,7 +35,6 @@ class PostController extends Controller
         $post -> slug = $request->slug;
         $post -> subtitle = $request->subtitle;
         $post -> status = $request->status;
-
         if($request->hasFile('image')){
             $image = $request->file('image');
             $filename = time() . '.' . $image->getClientOriginalExtension();
@@ -40,18 +43,19 @@ class PostController extends Controller
 
             $post->image = $filename;
         }
-
         $post ->save();
+        $post->tags()->sync($request->tags);
+        $post->categories()->sync($request->categories);
 
         return redirect()->back();
     }
 
-    public function edit(Request $request, $id=null){
+    public function edit(Request $request, $id){
 
             if($request->isMethod('post')){
                 $data = $request->all();
                 //echo "<pre>"; print_r($data); die;
-                $post = new Post();
+                $post = Post::find($id);
                 if($request->hasFile('image')){
                     $image = $request->file('image');
                     $filename = time() . '.' . $image->getClientOriginalExtension();
@@ -65,19 +69,37 @@ class PostController extends Controller
                 }else{
                     $filename = '';
                 }
+                if(empty($data['status'])){
+                    $status='0';
+                }else{
+                    $status='1';
+                }
 
-                Post::where(['id'=>$id])->update(['title'=>$data['title'],
-                    'body'=>$data['body'],'subtitle'=>$data['subtitle'],
-                    'slug'=>$data['slug'],'status'=>$data['status'],'image'=>$filename]);
+
+                $post -> title = $request->title;
+                $post -> body = $request->body;
+                $post -> slug = $request->slug;
+                $post -> subtitle = $request->subtitle;
+                $post -> status = $request->status;
+                $post ->update();
+                $post->tags()->sync($request->tags);
+                $post->categories()->sync($request->categories);
                 return redirect('/posts')->with('flash_message_success','Post Edited Successfully');
             }
-            $posts = Post::where(['id'=>$id])->first();
-            return view('posts.edit_post')->with(compact('posts'));
+            $tags = Tag::all();
+            $categories = Category::all();
+            $posts = Post::with('tags','categories')->where(['id'=>$id])->first();
+            return view('posts.edit_post')->with(compact('posts','tags','categories'));
     }
 
     public function deletePostImage($id = null){
         Post::where(['id'=>$id])->update(['image'=>'']);
         return redirect()->back()->with('flash_message_success','Post image has been deleted Successfully!');
+    }
+
+    public function deletePost($id=null){
+        Post::where(['id'=>$id])->delete();
+        return redirect()->back();
     }
 
 }

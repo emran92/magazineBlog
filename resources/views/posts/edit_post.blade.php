@@ -54,6 +54,34 @@
                                             <label for="">Post Slug</label>
                                             <input type="text" name="slug" class="form-control" value="{{$posts->slug}}">
                                         </div>
+                                        <div class="form-group" style="margin-top: 28px;">
+                                            <label>Select Tag</label>
+                                            <select class="form-control select2 select2-hidden-accessible" name="tags[]" multiple="" data-placeholder="Select Tags" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                                                @foreach($tags as $tag)
+                                                    <option value="{{ $tag->id }}"
+                                                    @foreach ($posts->tags as $postTag)
+                                                        @if ($postTag->id == $tag->id)
+                                                            selected
+                                                        @endif
+                                                     @endforeach
+                                                    >{{$tag->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group" style="margin-top: 28px;">
+                                            <label>Select Category</label>
+                                            <select class="form-control select2 select2-hidden-accessible" name="categories[]" multiple="" data-placeholder="Select a Category" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                                                @foreach($categories as $category)
+                                                    <option value="{{ $category->id }}"
+                                                            @foreach ($posts->categories as $postCategory)
+                                                            @if ($postCategory->id == $category->id)
+                                                            selected
+                                                            @endif
+                                                            @endforeach
+                                                    >{{$category->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     </div>
 
                                     <div class="col-lg-6">
@@ -63,16 +91,18 @@
                                                 <input type="file" name="image" id="image">
                                                 <input type="hidden" name="current_image" value="{{ $posts->image }}">
                                                 @if(!empty($posts->image))
-                                                    <img style="" src="{{ asset('images/'.$posts->image) }}" width="30%" height="30%">
+                                                    <img style="" src="{{ asset('images/'.$posts->image) }}" width="20%" height="20%">
                                                     | <a href="{{ url('/posts/delete-posts-image/'.$posts->id) }}"> Delete Image</a>
                                                 @endif
                                             </div>
                                         </div>
                                         <div class="control-group">
-                                            <label class="control-label">Publish</label>
-                                            <div class="controls">
-                                                <input readonly type="checkbox" name="status" id="status" @if($posts->status == "1") checked @endif value="1">
+
+                                            <div class="pull-left">
+                                                <input readonly type="checkbox" name="status" id="status"
+                                                       @if($posts->status == "1") checked @endif value="1"><span style="color: red; font-size: 25px;">  Publish ? (mark/unmark this)</span>
                                             </div>
+                                            <br>
                                         </div>
                                     </div>
                                     <div class="col-lg-12"><div class="form-group">
@@ -90,8 +120,8 @@
                                                 </div>
                                                 <!-- /.box-header -->
                                                 <div class="box-body pad">
-                                                        <textarea class="textarea" name="body" id="body" placeholder="Place some text here"
-                                                                  style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{$posts->body}}</textarea>
+                                                        <textarea name="body" id="editor1"
+                                                                  style="width: 100%; height: 500px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">{{$posts->body}}</textarea>
                                                 </div>
                                             </div>
                                         </div></div>
@@ -111,3 +141,4 @@
     </div>
 
 @endsection
+

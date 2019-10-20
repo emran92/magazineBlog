@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class CategoryController extends Controller
 {
@@ -29,7 +30,8 @@ class CategoryController extends Controller
 
         $category ->save();
 
-        return redirect()->back();
+        return redirect()->route('categories')->with('flash_message_success','New Category Added');
+
     }
 
     public function edit(Request $request, $id=null){
@@ -43,5 +45,10 @@ class CategoryController extends Controller
         }
         $category = Category::where(['id'=>$id])->first();
         return view('category.edit_category')->with(compact('category'));
+    }
+
+    public function deleteCategory($id=null){
+        Category::where(['id'=>$id])->delete();
+        return redirect()->back();
     }
 }

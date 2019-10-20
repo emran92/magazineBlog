@@ -29,6 +29,10 @@
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">MENU</li>
             <!-- Optionally, you can add icons to the links -->
+            <li><a href="{{route('categories')}}"><i class="fa fa-bars"></i> <span>All Category</span></a></li>
+            <li><a href="{{route('posts')}}"><i class="fa fa-bars"></i> <span>All Post</span></a></li>
+            <li><a href="{{route('tags')}}"><i class="fa fa-bars"></i> <span>All Tags</span></a></li>
+
             <li class="treeview">
                 <a href="#"><i class="fa fa-link"></i> <span>Category</span>
                     <span class="pull-right-container">
