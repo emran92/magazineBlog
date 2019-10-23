@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Category;
 
 class Post extends Model
 {
@@ -17,4 +18,16 @@ class Post extends Model
     public function categories(){
         return $this->belongsToMany('App\Category','category_posts')->withTimestamps();
     }
+
+    public function post()
+    {
+        return $this->belongsTo(Post::class);
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
+
 }

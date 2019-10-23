@@ -20,7 +20,7 @@ class CreatePostsTable extends Migration
             $table->string('slug');
             $table->text('body');
             $table->binary('image')->nullable();
-            $table->tinyInteger('status');
+            $table->tinyInteger('status')->default(0)->nullable();
             $table->timestamps();
         });
     }

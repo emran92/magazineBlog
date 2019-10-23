@@ -37,7 +37,7 @@
                         <div class="card">
                             <div class="card-header">All Posts
                                 <div class="" style="float:right">
-                                    <a href="{{url('posts/create')}}" target="_blank">
+                                    <a href="{{url('admin/posts/create')}}" target="_blank">
                                         <button class="btn btn-large btn-primary">Add Post</button>
                                     </a>
                                 </div>
@@ -45,27 +45,31 @@
                             <div class="card-body">
                                 <table class="table myTable">
                                     <thead>
+                                    <th>ID</th>
                                     <th>Title</th>
                                     <th>Subtitle</th>
                                     <th>Slug</th>
-                                    {{--<th>Body</th>--}}
-                                    <th>Image</th>
                                     <th>Status</th>
-                                    <th>Edit</th>
-                                    <th>Delete</th>
+                                    <th>Created</th>
+                                    <th>Updated</th>
+                                    <th>Actions</th>
                                     </thead>
                                     <tbody>
                                     @foreach($posts as $post)
                                         <tr>
+                                            <td>{{$post->id}}</td>
                                             <td>{{$post->title}}</td>
                                             <td>{{$post->subtitle}}</td>
                                             <td>{{$post->slug}}</td>
                                             {{--<td>{{$post->body}}</td>--}}
-                                            <td><img src="{{ asset('images/'.$post->image)}}" width="40" height="40"></td>
                                             <td class="center"><input disabled="" type="checkbox" name="status" id="status" @if($post->status == "1") checked @endif value="1"></td>
-                                            <td><a href="{{ url('/posts/edit/'.$post->id) }}" target="_blank">
-                                                    <span class="fa fa-edit" style="font-size: 35px;"></span>
+                                            <td>{{$post->created_at->diffForHumans()}}</td>
+                                            <td>{{$post->updated_at->diffForHumans()}}</td>
                                             <td>
+                                                <a href="{{ url('admin/posts/view/'.$post->id) }}" target="_blank">
+                                                    <span class="fa fa-eye" style="font-size: 35px;"></span></a>
+                                                <a href="{{ url('admin/posts/edit/'.$post->id) }}" target="_blank">
+                                                <span class="fa fa-edit" style="font-size: 35px;"></span></a>
                                                 <a rel="{{ $post->id }}"
                                                    rel1="delete-posts" href="javascript:" class="deletePost">
                                                     <span class="fa fa-remove" style="font-size: 35px; color: red;"></span></a>

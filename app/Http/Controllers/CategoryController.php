@@ -41,7 +41,7 @@ class CategoryController extends Controller
 
             Category::where(['id'=>$id])->update(['name'=>$data['name'],
                 'slug'=>$data['slug']]);
-            return redirect('/categories')->with('flash_message_success','Category Edited Successfully');
+            return redirect('admin/categories')->with('flash_message_success','Category Edited Successfully');
         }
         $category = Category::where(['id'=>$id])->first();
         return view('category.edit_category')->with(compact('category'));

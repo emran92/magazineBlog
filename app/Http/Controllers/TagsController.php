@@ -42,7 +42,7 @@ class TagsController extends Controller
 
             Tag::where(['id'=>$id])->update(['name'=>$data['name'],
                 'slug'=>$data['slug']]);
-            return redirect('/tags')->with('flash_message_success','Tag Edited Successfully');
+            return redirect('admin/tags')->with('flash_message_success','Tag Edited Successfully');
         }
         $tag = Tag::where(['id'=>$id])->first();
         return view('tag.edit_tag')->with(compact('tag'));

@@ -37,7 +37,7 @@
                         <div class="card">
                             <div class="card-header">All Categories
                                 <div class="" style="float:right">
-                                    <a href="{{url('categories/create')}}" target="_blank">
+                                    <a href="{{url('admin/categories/create')}}" target="_blank">
                                         <button class="btn btn-large btn-primary">Add Category</button>
                                     </a>
                                 </div>
@@ -45,17 +45,23 @@
                             <div class="card-body">
                                 <table class="table myTable">
                                     <thead>
+                                    <th>ID</th>
                                     <th>Category Name</th>
                                     <th>Slug</th>
+                                    <th>Created</th>
+                                    <th>Updated</th>
                                     <th>Edit</th>
                                     <th>Delete</th>
                                     </thead>
                                     <tbody>
                                     @foreach($categories as $category)
                                         <tr>
+                                            <td>{{$category->id}}</td>
                                             <td>{{$category->name}}</td>
                                             <td>{{$category->slug}}</td>
-                                            <td><a href="{{ url('/categories/edit/'.$category->id) }}" target="_blank">
+                                            <td>{{$category->created_at->diffForHumans()}}</td>
+                                            <td>{{$category->updated_at->diffForHumans()}}</td>
+                                            <td><a href="{{ url('admin/categories/edit/'.$category->id) }}" target="_blank">
                                                     <span class="fa fa-edit" style="font-size: 35px;"></span>
                                             <td>
                                                 <a rel="{{ $category->id }}"

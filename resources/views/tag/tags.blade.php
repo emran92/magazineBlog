@@ -37,7 +37,7 @@
                         <div class="card">
                             <div class="card-header">All Tags
                                 <div class="" style="float:right">
-                                    <a href="{{url('tags/create')}}" target="_blank">
+                                    <a href="{{url('admin/tags/create')}}" target="_blank">
                                         <button class="btn btn-large btn-primary">Add Tag</button>
                                     </a>
                                 </div>
@@ -45,6 +45,7 @@
                             <div class="card-body">
                                 <table class="table myTable">
                                     <thead>
+                                    <th>No.</th>
                                     <th>Category Name</th>
                                     <th>Slug</th>
                                     <th>Edit</th>
@@ -53,9 +54,10 @@
                                     <tbody>
                                     @foreach($tags as $tag)
                                         <tr>
+                                            <td>{{$tag->id}}</td>
                                             <td>{{$tag->name}}</td>
                                             <td>{{$tag->slug}}</td>
-                                            <td><a href="{{ url('/tags/edit/'.$tag->id) }}" target="_blank">
+                                            <td><a href="{{ url('admin/tags/edit/'.$tag->id) }}" target="_blank">
                                                     <span class="fa fa-edit" style="font-size: 35px;"></span>
                                             <td>
                                                 <a rel="{{ $tag->id }}"

@@ -17,6 +17,13 @@ class PostController extends Controller
         return view('posts.posts',compact('posts'));
     }
 
+    public function view($id){
+        $tags = Tag::all();
+        $categories = Category::all();
+        $posts = Post::with('tags','categories')->where(['id'=>$id])->first();
+        return view('posts.view',compact('posts','tags','categories'));
+    }
+
 
     public function create(){
         $tags = Tag::all();
@@ -36,10 +43,12 @@ class PostController extends Controller
         $post -> subtitle = $request->subtitle;
         $post -> status = $request->status;
         if($request->hasFile('image')){
-            $image = $request->file('image');
-            $filename = time() . '.' . $image->getClientOriginalExtension();
-            $location = public_path('images/'.$filename);
-            Image::make($image)->save($location);
+            $image       = $request->file('image');
+            $filename    = $image->getClientOriginalName();
+
+            $image_resize = Image::make($image->getRealPath());
+            $image_resize->resize(600, 450);
+            $image_resize->save(public_path('images/' .$filename));
 
             $post->image = $filename;
         }
@@ -57,10 +66,12 @@ class PostController extends Controller
                 //echo "<pre>"; print_r($data); die;
                 $post = Post::find($id);
                 if($request->hasFile('image')){
-                    $image = $request->file('image');
-                    $filename = time() . '.' . $image->getClientOriginalExtension();
-                    $location = public_path('images/'.$filename);
-                    Image::make($image)->save($location);
+                    $image       = $request->file('image');
+                    $filename    = $image->getClientOriginalName();
+
+                    $image_resize = Image::make($image->getRealPath());
+                    $image_resize->resize(600, 450);
+                    $image_resize->save(public_path('images/' .$filename));
 
                     $post->image = $filename;
                 }
@@ -69,7 +80,7 @@ class PostController extends Controller
                 }else{
                     $filename = '';
                 }
-                if(empty($data['status'])){
+                if(empty($request['status'])){
                     $status='0';
                 }else{
                     $status='1';
@@ -84,7 +95,7 @@ class PostController extends Controller
                 $post ->update();
                 $post->tags()->sync($request->tags);
                 $post->categories()->sync($request->categories);
-                return redirect('/posts')->with('flash_message_success','Post Edited Successfully');
+                return redirect('admin/posts')->with('flash_message_success','Post Edited Successfully');
             }
             $tags = Tag::all();
             $categories = Category::all();

@@ -37,7 +37,7 @@
                         </div>
                         <!-- /.box-header -->
                         <!-- form start -->
-                        <form action="{{ url('tags/edit/'.$tag->id) }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ url('/admin/tags/edit/'.$tag->id) }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="box-body">
                                 <div class="row">

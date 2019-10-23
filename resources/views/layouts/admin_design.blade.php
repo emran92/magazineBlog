@@ -7,6 +7,7 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link href="{{ asset('css/select2.css') }}" rel="stylesheet" />
+
     <link rel="stylesheet" href="{{asset('css/app.css') }}">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet">
@@ -98,7 +99,7 @@ desired effect
                         timer: 1000
                     },
                     function(){
-                        window.location.href="/categories/"+deleteFunction+"/"+id;
+                        window.location.href="/admin/categories/"+deleteFunction+"/"+id;
                     })
             });
         });
@@ -123,7 +124,7 @@ desired effect
                         timer: 1000
                     },
                     function(){
-                        window.location.href="/posts/"+deleteFunction+"/"+id;
+                        window.location.href="/admin/posts/"+deleteFunction+"/"+id;
                     })
             });
         });
@@ -148,7 +149,7 @@ desired effect
                         timer: 1000
                     },
                     function(){
-                        window.location.href="/tags/"+deleteFunction+"/"+id;
+                        window.location.href="/admin/tags/"+deleteFunction+"/"+id;
                     })
             });
         });

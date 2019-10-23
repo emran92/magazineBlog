@@ -37,7 +37,7 @@
                         </div>
                         <!-- /.box-header -->
                         <!-- form start -->
-                        <form action="{{ url('posts/edit/'.$posts->id) }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ url('/admin/posts/edit/'.$posts->id) }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="box-body">
                                 <div class="row">
@@ -74,9 +74,9 @@
                                                 @foreach($categories as $category)
                                                     <option value="{{ $category->id }}"
                                                             @foreach ($posts->categories as $postCategory)
-                                                            @if ($postCategory->id == $category->id)
-                                                            selected
-                                                            @endif
+                                                                @if ($postCategory->id == $category->id)
+                                                                    selected
+                                                                @endif
                                                             @endforeach
                                                     >{{$category->name }}</option>
                                                 @endforeach
@@ -92,7 +92,7 @@
                                                 <input type="hidden" name="current_image" value="{{ $posts->image }}">
                                                 @if(!empty($posts->image))
                                                     <img style="" src="{{ asset('images/'.$posts->image) }}" width="20%" height="20%">
-                                                    | <a href="{{ url('/posts/delete-posts-image/'.$posts->id) }}"> Delete Image</a>
+                                                    | <a href="{{ url('/admin/posts/delete-posts-image/'.$posts->id) }}"> Delete Image</a>
                                                 @endif
                                             </div>
                                         </div>
